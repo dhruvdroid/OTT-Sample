@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Romantic Comedy</string>
+    <string name="no_results">No movie found 😓</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Type here...</string>
+    <string name="romantic_comedy">Romantic Comedy</string>
+</resources>
