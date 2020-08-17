@@ -15,8 +15,6 @@ Used the following concepts
 **Know Issues**
 1. Loading indicator via Movie Result Sealed classes
 2. Error handling for no network and empty list while filtering
-3. Instead of giving the fixed coloumn (3 - portrait / 7 - landscape) for the Grid Layout. I have
-opted for the width based deciding of the coloumn
 
 **Improvements**
 1. Using of the navigation component, didn't used it as there was not much of the navigation inside
