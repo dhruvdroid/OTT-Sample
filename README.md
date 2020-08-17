@@ -26,4 +26,4 @@ opted for the width based deciding of the coloumn
 implementation and learn something new. If I would have given choice to choose DI, I would have tried
 out the HILT (Reason - out of the box support by android team and testing capability)
 4. Implementation of the ROOM to save the user data, and cache to avoid the API call.
-5. Inclusion of uni test, couldn't complete it because of my pet medical emergency.
+5. Completion of unit test cases
