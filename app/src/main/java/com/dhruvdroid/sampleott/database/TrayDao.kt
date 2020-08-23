@@ -15,6 +15,4 @@ interface TrayDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insertMovieList(movieList: List<Tray>)
 
-//  @Query("SELECT * FROM Tray WHERE page = :page_")
-//  suspend fun getMovieList(page_: Int): List<Tray>
 }

@@ -30,9 +30,6 @@ class MainActivity : BaseActivity() {
 
     private var totalCount = 0
     private var contentAdapter: ContentListAdapter? = null
-    private lateinit var list: TrayList
-
-    //    private val movieAdapter = MovieListAdapter()
     private val viewModel: MainViewModel by viewModel()
 
     override fun getLayoutId(): Int {
@@ -66,8 +63,6 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setUiData(data: TrayList) {
-//        list = data.page.contentItems.content
-//        movieAdapter.submitList(list)
 
         if (contentAdapter == null) {
             contentAdapter = ContentListAdapter(this, data.TestData as MutableList<Tray>)
@@ -78,13 +73,9 @@ class MainActivity : BaseActivity() {
 
                 // assign layout manager
                 layoutManager = LinearLayoutManager(context)
-                // specify an viewAdapter (see also next example)
-                // addItemDecoration(ListDecorator())
                 adapter = contentAdapter
-//                totalCount += data.trayList.size
             }
         } else {
-//            totalCount += data.page.contentItems.content.size
             contentAdapter?.updateList(data.TestData as MutableList<Tray>)
         }
 

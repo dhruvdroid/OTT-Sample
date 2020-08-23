@@ -34,11 +34,6 @@ class MainViewModel constructor(
     }
 
     fun listScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int) {
-        Log.d("--", "-------------------------------------------------")
-        Log.d("--", "Visible Count = $visibleItemCount")
-        Log.d("--", "lastVisibleItemPosition = $lastVisibleItemPosition")
-        Log.d("--", "totalItemCount = $totalItemCount")
-        Log.d("--", "VISIBLE_THRESHOLD = $THRESHOLD")
         if (visibleItemCount + lastVisibleItemPosition + THRESHOLD >= totalItemCount) {
             Log.d(
                 "--",
