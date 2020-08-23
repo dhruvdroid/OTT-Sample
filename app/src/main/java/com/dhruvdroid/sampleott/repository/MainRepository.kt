@@ -1,22 +1,18 @@
 package com.dhruvdroid.sampleott.repository
 
 import android.util.Log
-import com.dhruvdroid.sampleott.data.Content
 import com.dhruvdroid.sampleott.data.MovieResult
-import com.dhruvdroid.sampleott.data.Tray
 import com.dhruvdroid.sampleott.network.MovieService
 import com.dhruvdroid.sampleott.utilities.AppUtils
-import com.dhruvdroid.sampleott.utilities.AppUtils.getRandomId
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import retrofit2.HttpException
 import java.io.IOException
-import java.util.*
 
 //
-// Created by Dhruv on 14/08/20.
+// Created by Dhruv on 23/08/20.
 //
 @ExperimentalCoroutinesApi
 class MainRepository constructor(
@@ -31,11 +27,8 @@ class MainRepository constructor(
     // avoid triggering multiple requests in the same time
     private var isApiInProgress = false
 
-    private var memoryCache = mutableListOf<Content>()
-
     suspend fun getMovieList(): Flow<MovieResult> {
         lastRequestedPage = 1
-        memoryCache.clear()
         requestData()
         return searchResults.asFlow()
     }
@@ -47,8 +40,7 @@ class MainRepository constructor(
         try {
             Log.d("--", "lastRequestedPage == $lastRequestedPage")
             val response = service.fetchList(AppUtils.getApiUrl(lastRequestedPage))
-            memoryCache.addAll(response.page.contentItems.content)
-            searchResults.offer(MovieResult.Success(filterItem(response)))
+            searchResults.offer(MovieResult.Success(response))
             isSuccess = true
         } catch (exception: IOException) {
             searchResults.offer(MovieResult.Error(exception))
@@ -57,18 +49,6 @@ class MainRepository constructor(
         }
         isApiInProgress = false
         return isSuccess
-    }
-
-    private fun filterItem(response: Tray): Tray {
-        // adding random id to the API response
-        val array = ByteArray(7)
-        Random().nextBytes(array)
-
-        response.page.contentItems.content.forEach {
-            it.id = getRandomId()// String(array, Charset.forName("UTF-8"))
-        }
-
-        return response
     }
 
     suspend fun requestMore() {

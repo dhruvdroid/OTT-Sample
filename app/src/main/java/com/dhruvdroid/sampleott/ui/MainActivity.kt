@@ -2,7 +2,6 @@ package com.dhruvdroid.sampleott.ui
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,33 +9,30 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dhruvdroid.sampleott.R
 import com.dhruvdroid.sampleott.adapter.ContentListAdapter
-import com.dhruvdroid.sampleott.adapter.MovieListAdapter
 import com.dhruvdroid.sampleott.base.BaseActivity
-import com.dhruvdroid.sampleott.data.Content
 import com.dhruvdroid.sampleott.data.MovieResult
-import com.dhruvdroid.sampleott.data.Page
 import com.dhruvdroid.sampleott.data.Tray
-import com.dhruvdroid.sampleott.layoutmanager.CustomGridLayoutManager
-import com.dhruvdroid.sampleott.layoutmanager.ListDecorator
-import com.dhruvdroid.sampleott.utilities.AppUtils
+import com.dhruvdroid.sampleott.data.TrayList
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 //
-// Created by Dhruv on 14/08/20.
+// Created by Dhruv on 23/08/20.
 //
 @ExperimentalCoroutinesApi
 class MainActivity : BaseActivity() {
 
     private var totalCount = 0
     private var contentAdapter: ContentListAdapter? = null
-    private lateinit var list: List<Content>
-    private val movieAdapter = MovieListAdapter()
+    private lateinit var list: TrayList
+
+    //    private val movieAdapter = MovieListAdapter()
     private val viewModel: MainViewModel by viewModel()
 
     override fun getLayoutId(): Int {
@@ -54,7 +50,7 @@ class MainActivity : BaseActivity() {
         viewModel.movieResult.observe(this) { result ->
             when (result) {
                 is MovieResult.Success -> {
-                    showEmptyList(result.data.page)
+                    showEmptyList(result.data)
                     setUiData(result.data)
                 }
 
@@ -69,36 +65,34 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun setUiData(data: Tray) {
+    private fun setUiData(data: TrayList) {
 //        list = data.page.contentItems.content
 //        movieAdapter.submitList(list)
 
         if (contentAdapter == null) {
-            contentAdapter =
-                ContentListAdapter(data.page.contentItems.content as MutableList<Content>)
+            contentAdapter = ContentListAdapter(data.TestData as MutableList<Tray>)
             rvList.apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
                 setHasFixedSize(true)
 
                 // assign layout manager
-                layoutManager =
-                    CustomGridLayoutManager(context, AppUtils.calculateNoOfColumns(context, 140f))
+                layoutManager = LinearLayoutManager(context)
                 // specify an viewAdapter (see also next example)
-                addItemDecoration(ListDecorator())
+                // addItemDecoration(ListDecorator())
                 adapter = contentAdapter
-                totalCount += data.page.contentItems.content.size
+//                totalCount += data.trayList.size
             }
         } else {
-            totalCount += data.page.contentItems.content.size
-            contentAdapter?.updateList(data.page.contentItems.content as MutableList<Content>)
+//            totalCount += data.page.contentItems.content.size
+            contentAdapter?.updateList(data.TestData as MutableList<Tray>)
         }
 
         setupScrollListener()
     }
 
-    private fun showEmptyList(page: Page) {
-        if (page.contentItems.content.isEmpty()) {
+    private fun showEmptyList(page: TrayList) {
+        if (page.TestData.isEmpty()) {
             emptyList.visibility = View.VISIBLE
             rvList.visibility = View.GONE
         } else {
@@ -108,7 +102,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setupScrollListener() {
-        val layoutManager = rvList.layoutManager as CustomGridLayoutManager
+        val layoutManager = rvList.layoutManager as LinearLayoutManager
         rvList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -161,21 +155,6 @@ class MainActivity : BaseActivity() {
         return if (id == R.id.action_search) {
             true
         } else super.onOptionsItemSelected(item)
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        // orientation of the screen
-        if (newConfig.orientation === Configuration.ORIENTATION_LANDSCAPE
-            || newConfig.orientation === Configuration.ORIENTATION_PORTRAIT
-        ) {
-            rvList.apply {
-                // handling custom grid columns based on screen width
-                layoutManager =
-                    CustomGridLayoutManager(context, AppUtils.calculateNoOfColumns(context, 140f))
-                adapter = contentAdapter
-            }
-        }
     }
 }
 

@@ -5,17 +5,16 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.dhruvdroid.sampleott.R
-import com.dhruvdroid.sampleott.data.Content
+import com.dhruvdroid.sampleott.data.Tray
 import com.dhruvdroid.sampleott.databinding.MovieItemBinding
 
 //
-// Created by Dhruv on 15/08/20.
+// Created by Dhruv on 23/08/20.
 //
-class ContentListAdapter(val list: MutableList<Content>) :
+class ContentListAdapter(val list: MutableList<Tray>) :
     RecyclerView.Adapter<ContentListAdapter.MovieViewHolder>(), Filterable {
 
-    private lateinit var listFiltered: MutableList<Content>
+    private var listFiltered: MutableList<Tray>
 
     init {
         listFiltered = list
@@ -33,56 +32,23 @@ class ContentListAdapter(val list: MutableList<Content>) :
     inner class MovieViewHolder(private val viewBinder: MovieItemBinding) :
         RecyclerView.ViewHolder(viewBinder.root) {
 
-        fun viewBinding(data: Content) {
-            viewBinder.title.text = data.name
-            viewBinder.movieCard.setBackgroundResource(getDrawableResource(data.posterImage))
-        }
-    }
-
-    private fun getDrawableResource(posterImage: String): Int {
-        when (posterImage) {
-            "poster1.jpg" -> {
-                return R.drawable.poster1
-            }
-            "poster2.jpg" -> {
-                return R.drawable.poster2
-            }
-            "poster3.jpg" -> {
-                return R.drawable.poster3
-            }
-            "poster4.jpg" -> {
-                return R.drawable.poster4
-            }
-            "poster5.jpg" -> {
-                return R.drawable.poster5
-            }
-            "poster6.jpg" -> {
-                return R.drawable.poster6
-            }
-            "poster7.jpg" -> {
-                return R.drawable.poster7
-            }
-            "poster8.jpg" -> {
-                return R.drawable.poster8
-            }
-            "poster9.jpg" -> {
-                return R.drawable.poster9
-            }
-            else -> {
-                return R.drawable.placeholder
-            }
+        fun viewBinding(data: Tray) {
+//            viewBinder.title.text = data.name
+//            viewBinder.movieCard.setBackgroundResource(getDrawableResource(data.posterImage))
+            viewBinder.data = data
         }
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.viewBinding(listFiltered.get(position))
+        holder.viewBinding(listFiltered[position])
+        holder
     }
 
     override fun getItemCount(): Int {
         return listFiltered.size
     }
 
-    fun updateList(content: List<Content>) {
+    fun updateList(content: List<Tray>) {
         this.list.addAll(content)
         notifyDataSetChanged()
     }
@@ -94,12 +60,12 @@ class ContentListAdapter(val list: MutableList<Content>) :
                 listFiltered = if (charString.isEmpty()) {
                     list
                 } else {
-                    val filteredList: MutableList<Content> = ArrayList()
-                    for (item in list) {
-                        if (item.name.toLowerCase().contains(charString.toLowerCase())) {
-                            filteredList.add(item)
-                        }
-                    }
+                    val filteredList: MutableList<Tray> = ArrayList()
+//                    for (item in list) {
+//                        if (item.trayList.get().toLowerCase().contains(charString.toLowerCase())) {
+//                            filteredList.add(item)
+//                        }
+//                    }
                     filteredList
                 }
 
@@ -109,7 +75,7 @@ class ContentListAdapter(val list: MutableList<Content>) :
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                listFiltered = filterResults.values as MutableList<Content>
+                listFiltered = filterResults.values as MutableList<Tray>
                 notifyDataSetChanged()
             }
         }

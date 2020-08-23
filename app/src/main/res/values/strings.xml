@@ -1,7 +1,13 @@
 <resources>
-    <string name="app_name">Romantic Comedy</string>
+    <string name="app_name">Sample OTT</string>
     <string name="no_results">No movie found 😓</string>
     <string name="search">Search</string>
     <string name="search_hint">Type here...</string>
     <string name="romantic_comedy">Romantic Comedy</string>
+    <string name="plan_free">Plan: %s</string>
+    <string name="release_year_2019">Release Year: %s</string>
+    <string name="duration">Duration: %s</string>
+    <string name="type">Type: %s</string>
+    <string name="created_on">Created On: %s</string>
+    <string name="updated_on">Updated On: %s</string>
 </resources>

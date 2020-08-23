@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dhruvdroid.sampleott.R;
 
 //
-// Created by Dhruv on 16/08/20.
+// Created by Dhruv on 23/08/20.
 //
 public class ListDecorator extends RecyclerView.ItemDecoration {
 

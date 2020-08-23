@@ -13,7 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 //
-// Created by Dhruv on 14/08/20.
+// Created by Dhruv on 23/08/20.
 //
 @ExperimentalCoroutinesApi
 class MainViewModel constructor(
@@ -21,7 +21,6 @@ class MainViewModel constructor(
 ) : BaseViewModel() {
 
     var movieResult: LiveData<MovieResult>
-
 
     companion object {
         private const val THRESHOLD = 10
