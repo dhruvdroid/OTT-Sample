@@ -5,7 +5,7 @@
     <string name="search_hint">Type here...</string>
     <string name="sample_ott">Sample OTT</string>
     <string name="plan_free">Plan: %s</string>
-    <string name="release_year_2019">Release Year: %s</string>
+    <string name="release_year_2019">Year: %s</string>
     <string name="duration">Duration: %s</string>
     <string name="type">Type: %s</string>
     <string name="created_on">Created On: %s</string>

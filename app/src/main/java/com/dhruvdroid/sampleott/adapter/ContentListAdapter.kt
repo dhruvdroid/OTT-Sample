@@ -1,6 +1,7 @@
 package com.dhruvdroid.sampleott.adapter
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -10,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.dhruvdroid.sampleott.R
 import com.dhruvdroid.sampleott.data.Tray
 import com.dhruvdroid.sampleott.databinding.MovieItemBinding
+import com.dhruvdroid.sampleott.utilities.AppUtils
 
 //
 // Created by Dhruv on 23/08/20.
@@ -36,9 +38,29 @@ class ContentListAdapter(val context: Context, val list: MutableList<Tray>) :
         RecyclerView.ViewHolder(viewBinder.root) {
 
         fun viewBinding(data: Tray) {
-//            viewBinder.title.text = data.name
-//            viewBinder.movieCard.setBackgroundResource(getDrawableResource(data.posterImage))
             viewBinder.data = data
+            if (!TextUtils.isEmpty(data.created_on)) {
+                val createdOn = AppUtils.getFormattedDate(
+                    data.created_on,
+                    AppUtils.INPUT_PATTERN_TRANSACTION_DATE,
+                    AppUtils.SERVICE_PERIOD_FORMAT
+                )
+                viewBinder.createdOnDate = createdOn
+            } else {
+                viewBinder.createdOnDate = ""
+            }
+
+            if (!TextUtils.isEmpty(data.updated_on)) {
+                val updatedOn = AppUtils.getFormattedDate(
+                    data.updated_on,
+                    AppUtils.INPUT_PATTERN_TRANSACTION_DATE,
+                    AppUtils.SERVICE_PERIOD_FORMAT
+                )
+                viewBinder.updatedOnDate = updatedOn
+            } else {
+                viewBinder.updatedOnDate = ""
+            }
+
             Glide.with(context).load(R.drawable.test_image).into(viewBinder.moviePoster);
         }
     }
@@ -64,11 +86,11 @@ class ContentListAdapter(val context: Context, val list: MutableList<Tray>) :
                     list
                 } else {
                     val filteredList: MutableList<Tray> = ArrayList()
-//                    for (item in list) {
-//                        if (item.trayList.get().toLowerCase().contains(charString.toLowerCase())) {
-//                            filteredList.add(item)
-//                        }
-//                    }
+                    for (item in list) {
+                        if (item.name.toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(item)
+                        }
+                    }
                     filteredList
                 }
 
@@ -83,5 +105,4 @@ class ContentListAdapter(val context: Context, val list: MutableList<Tray>) :
             }
         }
     }
-
 }

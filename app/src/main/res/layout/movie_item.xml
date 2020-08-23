@@ -9,9 +9,20 @@
             name="data"
             type="com.dhruvdroid.sampleott.data.Tray" />
 
+        <variable
+            name="createdOnDate"
+            type="java.lang.String" />
+
+        <variable
+            name="updatedOnDate"
+            type="java.lang.String" />
+
+
         <import type="android.text.TextUtils" />
 
         <import type="android.view.View" />
+
+
 
     </data>
 
@@ -45,20 +56,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:maxWidth="130dp"
-                android:src="@drawable/test_image"
                 android:maxHeight="170dp"
                 android:minWidth="130dp"
-                android:minHeight="130dp"
+                android:minHeight="170dp"
                 app:layout_constraintBottom_toTopOf="@+id/longDescription"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintTop_toTopOf="@+id/planLL" />
 
             <LinearLayout
                 android:id="@+id/planLL"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/moviePoster"
@@ -70,6 +78,8 @@
                     style="@style/TextViewStyle1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:gravity="center"
                     android:text="@{String.format(@string/plan_free,data.paymentPlan)}"
@@ -79,8 +89,10 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/releaseYear"
                     style="@style/TextViewStyle1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:text="@{String.format(@string/release_year_2019, String.valueOf(data.releaseYear))}"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="Release Year: 2020" />
@@ -90,8 +102,6 @@
                 android:id="@+id/durationLl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/moviePoster"
@@ -102,7 +112,8 @@
                     style="@style/TextViewStyle1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:text="@{String.format(@string/duration, data.videoDuration)}"
                     android:visibility="@{TextUtils.isEmpty(data.videoDuration) ? View.GONE : View.VISIBLE}"
                     tools:text="Duration: 4.44" />
@@ -110,9 +121,11 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/type"
                     style="@style/TextViewStyle1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="start"
                     android:text="@{String.format(@string/type, data.type)}"
                     android:visibility="@{TextUtils.isEmpty(data.type) ? View.GONE : View.VISIBLE}"
                     tools:text="Type: Movie" />
@@ -125,8 +138,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@{String.format(@string/created_on, data.created_on)}"
-                android:visibility="@{TextUtils.isEmpty(data.created_on) ? View.GONE : View.VISIBLE}"
+                android:text="@{String.format(@string/created_on, createdOnDate)}"
+                android:visibility="@{TextUtils.isEmpty(createdOnDate) ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toEndOf="@+id/moviePoster"
                 app:layout_constraintTop_toBottomOf="@+id/durationLl"
                 tools:text="Created On: 2020-03-20T07:35:26.271485Z" />
@@ -137,8 +150,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@{String.format(@string/updated_on, data.updated_on)}"
-                android:visibility="@{TextUtils.isEmpty(data.updated_on) ? View.GONE : View.VISIBLE}"
+                android:text="@{String.format(@string/updated_on, updatedOnDate)}"
+                android:visibility="@{TextUtils.isEmpty(updatedOnDate) ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toEndOf="@+id/moviePoster"
                 app:layout_constraintTop_toBottomOf="@+id/createdOn"
                 tools:text="Updated On: 2020-03-20T07:35:26.271485Z" />
@@ -162,8 +175,10 @@
                 style="@style/TextViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
                 android:text="@{data.description}"
                 android:visibility="@{TextUtils.isEmpty(data.description) ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shortDescription"
