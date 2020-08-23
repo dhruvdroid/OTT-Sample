@@ -6,22 +6,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dhruvdroid.sampleott.R
-import com.dhruvdroid.sampleott.data.Content
 import com.dhruvdroid.sampleott.databinding.MovieItemBinding
 
 //
 // Created by Dhruv on 15/08/20.
 //
-class MovieListAdapter : ListAdapter<Content, MovieListAdapter.MovieViewHolder>(DIFF_CHECK) {
+class MovieListAdapter : ListAdapter<com.dhruvdroid.data.Content, MovieListAdapter.MovieViewHolder>(DIFF_CHECK) {
 
     companion object {
-        private val DIFF_CHECK = object : DiffUtil.ItemCallback<Content>() {
-            override fun areItemsTheSame(oldItem: Content, newItem: Content): Boolean {
+        private val DIFF_CHECK = object : DiffUtil.ItemCallback<com.dhruvdroid.data.Content>() {
+            override fun areItemsTheSame(oldItem: com.dhruvdroid.data.Content, newItem: com.dhruvdroid.data.Content): Boolean {
                 return oldItem.id == newItem.id
             }
 
 
-            override fun areContentsTheSame(oldItem: Content, newItem: Content): Boolean {
+            override fun areContentsTheSame(oldItem: com.dhruvdroid.data.Content, newItem: com.dhruvdroid.data.Content): Boolean {
                 return oldItem == newItem
             }
 
@@ -40,7 +39,7 @@ class MovieListAdapter : ListAdapter<Content, MovieListAdapter.MovieViewHolder>(
     inner class MovieViewHolder(private val viewBinder: MovieItemBinding) :
         RecyclerView.ViewHolder(viewBinder.root) {
 
-        fun viewBinding(data: Content) {
+        fun viewBinding(data: com.dhruvdroid.data.Content) {
             viewBinder.title.text = data.name
             viewBinder.movieCard.setBackgroundResource(getDrawableResource(data.posterImage))
         }

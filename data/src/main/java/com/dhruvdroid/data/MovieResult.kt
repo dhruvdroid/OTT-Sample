@@ -1,4 +1,4 @@
-package com.dhruvdroid.sampleott.data
+package com.dhruvdroid.data
 
 //
 // Created by Dhruv on 15/08/20.

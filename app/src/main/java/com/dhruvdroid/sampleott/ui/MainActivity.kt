@@ -15,10 +15,6 @@ import com.dhruvdroid.sampleott.R
 import com.dhruvdroid.sampleott.adapter.ContentListAdapter
 import com.dhruvdroid.sampleott.adapter.MovieListAdapter
 import com.dhruvdroid.sampleott.base.BaseActivity
-import com.dhruvdroid.sampleott.data.Content
-import com.dhruvdroid.sampleott.data.MovieResult
-import com.dhruvdroid.sampleott.data.Page
-import com.dhruvdroid.sampleott.data.Tray
 import com.dhruvdroid.sampleott.layoutmanager.CustomGridLayoutManager
 import com.dhruvdroid.sampleott.layoutmanager.ListDecorator
 import com.dhruvdroid.sampleott.utilities.AppUtils
@@ -35,7 +31,7 @@ class MainActivity : BaseActivity() {
 
     private var totalCount = 0
     private var contentAdapter: ContentListAdapter? = null
-    private lateinit var list: List<Content>
+    private lateinit var list: List<com.dhruvdroid.data.Content>
     private val movieAdapter = MovieListAdapter()
     private val viewModel: MainViewModel by viewModel()
 
@@ -53,12 +49,12 @@ class MainActivity : BaseActivity() {
 
         viewModel.movieResult.observe(this) { result ->
             when (result) {
-                is MovieResult.Success -> {
+                is com.dhruvdroid.data.MovieResult.Success -> {
                     showEmptyList(result.data.page)
                     setUiData(result.data)
                 }
 
-                is MovieResult.Error -> {
+                is com.dhruvdroid.data.MovieResult.Error -> {
                     Toast.makeText(
                         this,
                         " $result.message}",
@@ -69,13 +65,13 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun setUiData(data: Tray) {
+    private fun setUiData(data: com.dhruvdroid.data.Tray) {
 //        list = data.page.contentItems.content
 //        movieAdapter.submitList(list)
 
         if (contentAdapter == null) {
             contentAdapter =
-                ContentListAdapter(data.page.contentItems.content as MutableList<Content>)
+                ContentListAdapter(data.page.contentItems.content as MutableList<com.dhruvdroid.data.Content>)
             rvList.apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
@@ -91,13 +87,13 @@ class MainActivity : BaseActivity() {
             }
         } else {
             totalCount += data.page.contentItems.content.size
-            contentAdapter?.updateList(data.page.contentItems.content as MutableList<Content>)
+            contentAdapter?.updateList(data.page.contentItems.content as MutableList<com.dhruvdroid.data.Content>)
         }
 
         setupScrollListener()
     }
 
-    private fun showEmptyList(page: Page) {
+    private fun showEmptyList(page: com.dhruvdroid.data.Page) {
         if (page.contentItems.content.isEmpty()) {
             emptyList.visibility = View.VISIBLE
             rvList.visibility = View.GONE
