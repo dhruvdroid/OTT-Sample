@@ -1,6 +1,5 @@
 package com.dhruvdroid.sampleott.network
 
-import com.dhruvdroid.sampleott.data.Tray
 import retrofit2.http.GET
 import retrofit2.http.Url
 
@@ -11,5 +10,5 @@ import retrofit2.http.Url
 interface MovieService {
 
     @GET
-    suspend fun fetchList(@Url path: String): Tray
+    suspend fun fetchList(@Url path: String): com.dhruvdroid.data.Tray
 }

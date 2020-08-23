@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.dhruvdroid.data.Content
 import com.dhruvdroid.sampleott.R
-import com.dhruvdroid.sampleott.data.Content
 import com.dhruvdroid.sampleott.databinding.MovieItemBinding
 
 //
@@ -15,7 +15,7 @@ import com.dhruvdroid.sampleott.databinding.MovieItemBinding
 class ContentListAdapter(val list: MutableList<Content>) :
     RecyclerView.Adapter<ContentListAdapter.MovieViewHolder>(), Filterable {
 
-    private lateinit var listFiltered: MutableList<Content>
+    private var listFiltered: MutableList<Content>
 
     init {
         listFiltered = list
@@ -33,7 +33,7 @@ class ContentListAdapter(val list: MutableList<Content>) :
     inner class MovieViewHolder(private val viewBinder: MovieItemBinding) :
         RecyclerView.ViewHolder(viewBinder.root) {
 
-        fun viewBinding(data: Content) {
+        fun viewBinding(data: com.dhruvdroid.data.Content) {
             viewBinder.title.text = data.name
             viewBinder.movieCard.setBackgroundResource(getDrawableResource(data.posterImage))
         }
@@ -82,7 +82,7 @@ class ContentListAdapter(val list: MutableList<Content>) :
         return listFiltered.size
     }
 
-    fun updateList(content: List<Content>) {
+    fun updateList(content: List<com.dhruvdroid.data.Content>) {
         this.list.addAll(content)
         notifyDataSetChanged()
     }
@@ -94,7 +94,7 @@ class ContentListAdapter(val list: MutableList<Content>) :
                 listFiltered = if (charString.isEmpty()) {
                     list
                 } else {
-                    val filteredList: MutableList<Content> = ArrayList()
+                    val filteredList: MutableList<com.dhruvdroid.data.Content> = ArrayList()
                     for (item in list) {
                         if (item.name.toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(item)
@@ -109,7 +109,7 @@ class ContentListAdapter(val list: MutableList<Content>) :
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                listFiltered = filterResults.values as MutableList<Content>
+                listFiltered = filterResults.values as MutableList<com.dhruvdroid.data.Content>
                 notifyDataSetChanged()
             }
         }

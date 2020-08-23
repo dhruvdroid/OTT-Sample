@@ -5,8 +5,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
-import com.dhruvdroid.sampleott.data.MovieResult
-import com.dhruvdroid.sampleott.data.Tray
 import com.dhruvdroid.sampleott.network.MovieService
 import com.dhruvdroid.sampleott.repository.MainRepository
 import com.dhruvdroid.sampleott.ui.MainViewModel
@@ -53,12 +51,12 @@ class MainViewModelTest {
 
     @Test
     fun fetchMovieTest() = runBlocking {
-        val mockData = Json.parse<Tray>(MockUtil.loadJSONFromAsset(context, "page1.json"))
+        val mockData = Json.parse<com.dhruvdroid.data.Tray>(MockUtil.loadJSONFromAsset(context, "page1.json"))
         whenever(movieService.fetchList("https://run.mocky.io/v3/1297c2bf-7399-48f1-b8ee-d0f98ca45a34"))
             .thenReturn(mockData)
 
-        val observer: Observer<MovieResult> = mock()
-        val fetchedData: LiveData<MovieResult> =
+        val observer: Observer<com.dhruvdroid.data.MovieResult> = mock()
+        val fetchedData: LiveData<com.dhruvdroid.data.MovieResult> =
             mainRepository.getMovieList().asLiveData()
         fetchedData.observeForever(observer)
 

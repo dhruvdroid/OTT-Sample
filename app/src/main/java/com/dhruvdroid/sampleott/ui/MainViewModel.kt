@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.dhruvdroid.sampleott.base.BaseViewModel
-import com.dhruvdroid.sampleott.data.MovieResult
 import com.dhruvdroid.sampleott.repository.MainRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,7 +19,7 @@ class MainViewModel constructor(
     private val repo: MainRepository
 ) : BaseViewModel() {
 
-    var movieResult: LiveData<MovieResult>
+    var movieResult: LiveData<com.dhruvdroid.data.MovieResult>
 
 
     companion object {
@@ -28,7 +27,7 @@ class MainViewModel constructor(
     }
 
     init {
-        movieResult = liveData<MovieResult> {
+        movieResult = liveData<com.dhruvdroid.data.MovieResult> {
             val list = repo.getMovieList().asLiveData(Dispatchers.Main)
             emitSource(list)
         }

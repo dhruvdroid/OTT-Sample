@@ -1,9 +1,6 @@
 package com.dhruvdroid.sampleott.repository
 
 import android.util.Log
-import com.dhruvdroid.sampleott.data.Content
-import com.dhruvdroid.sampleott.data.MovieResult
-import com.dhruvdroid.sampleott.data.Tray
 import com.dhruvdroid.sampleott.network.MovieService
 import com.dhruvdroid.sampleott.utilities.AppUtils
 import com.dhruvdroid.sampleott.utilities.AppUtils.getRandomId
@@ -23,7 +20,7 @@ class MainRepository constructor(
     private val service: MovieService
 ) : Repository {
 
-    private val searchResults = ConflatedBroadcastChannel<MovieResult>()
+    private val searchResults = ConflatedBroadcastChannel<com.dhruvdroid.data.MovieResult>()
 
     // keep the last requested page. When the request is successful, increment the page number.
     private var lastRequestedPage = START_PAGE_INDEX
@@ -31,9 +28,9 @@ class MainRepository constructor(
     // avoid triggering multiple requests in the same time
     private var isApiInProgress = false
 
-    private var memoryCache = mutableListOf<Content>()
+    private var memoryCache = mutableListOf<com.dhruvdroid.data.Content>()
 
-    suspend fun getMovieList(): Flow<MovieResult> {
+    suspend fun getMovieList(): Flow<com.dhruvdroid.data.MovieResult> {
         lastRequestedPage = 1
         memoryCache.clear()
         requestData()
@@ -48,18 +45,18 @@ class MainRepository constructor(
             Log.d("--", "lastRequestedPage == $lastRequestedPage")
             val response = service.fetchList(AppUtils.getApiUrl(lastRequestedPage))
             memoryCache.addAll(response.page.contentItems.content)
-            searchResults.offer(MovieResult.Success(filterItem(response)))
+            searchResults.offer(com.dhruvdroid.data.MovieResult.Success(filterItem(response)))
             isSuccess = true
         } catch (exception: IOException) {
-            searchResults.offer(MovieResult.Error(exception))
+            searchResults.offer(com.dhruvdroid.data.MovieResult.Error(exception))
         } catch (exception: HttpException) {
-            searchResults.offer(MovieResult.Error(exception))
+            searchResults.offer(com.dhruvdroid.data.MovieResult.Error(exception))
         }
         isApiInProgress = false
         return isSuccess
     }
 
-    private fun filterItem(response: Tray): Tray {
+    private fun filterItem(response: com.dhruvdroid.data.Tray): com.dhruvdroid.data.Tray {
         // adding random id to the API response
         val array = ByteArray(7)
         Random().nextBytes(array)
