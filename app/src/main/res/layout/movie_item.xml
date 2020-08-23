@@ -41,63 +41,83 @@
 
             <ImageView
                 android:id="@+id/moviePoster"
-                android:layout_width="130dp"
-                android:layout_height="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@color/black"
+                android:maxWidth="130dp"
+                android:src="@drawable/test_image"
+                android:maxHeight="170dp"
+                android:minWidth="130dp"
+                android:minHeight="130dp"
                 app:layout_constraintBottom_toTopOf="@+id/longDescription"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/paymentPlan"
-                style="@style/TextViewStyle"
+            <LinearLayout
+                android:id="@+id/planLL"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@{String.format(@string/plan_free,data.paymentPlan)}"
-                android:visibility="@{TextUtils.isEmpty(data.paymentPlan) ? View.GONE : View.VISIBLE}"
-                app:layout_constraintStart_toEndOf="@+id/moviePoster"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                tools:text="Plan: Pro" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/releaseYear"
-                style="@style/TextViewStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@{String.format(@string/release_year_2019, data.releaseYear)}"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="@{TextUtils.isEmpty(data.releaseYear) ? View.GONE : View.VISIBLE}"
-                app:layout_constraintStart_toEndOf="@+id/paymentPlan"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                tools:text="Release Year: 2020" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/duration"
-                style="@style/TextViewStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="@{String.format(@string/duration, data.videoDuration)}"
-                android:visibility="@{TextUtils.isEmpty(data.videoDuration) ? View.GONE : View.VISIBLE}"
-                app:layout_constraintEnd_toStartOf="@+id/type"
                 app:layout_constraintStart_toEndOf="@+id/moviePoster"
-                app:layout_constraintTop_toBottomOf="@+id/paymentPlan"
-                tools:text="Duration: 4.44" />
+                app:layout_constraintTop_toBottomOf="@+id/title">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/type"
-                style="@style/TextViewStyle"
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/paymentPlan"
+                    style="@style/TextViewStyle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
+                    android:text="@{String.format(@string/plan_free,data.paymentPlan)}"
+                    android:visibility="@{TextUtils.isEmpty(data.paymentPlan) ? View.GONE : View.VISIBLE}"
+                    tools:text="Plan: Pro" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/releaseYear"
+                    style="@style/TextViewStyle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@{String.format(@string/release_year_2019, String.valueOf(data.releaseYear))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="Release Year: 2020" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/durationLl"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@{String.format(@string/type, data.type)}"
-                android:visibility="@{TextUtils.isEmpty(data.type) ? View.GONE : View.VISIBLE}"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/duration"
-                app:layout_constraintTop_toBottomOf="@+id/paymentPlan"
-                tools:text="Type: Movie" />
+                app:layout_constraintStart_toEndOf="@+id/moviePoster"
+                app:layout_constraintTop_toBottomOf="@+id/planLL">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/duration"
+                    style="@style/TextViewStyle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{String.format(@string/duration, data.videoDuration)}"
+                    android:visibility="@{TextUtils.isEmpty(data.videoDuration) ? View.GONE : View.VISIBLE}"
+                    tools:text="Duration: 4.44" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/type"
+                    style="@style/TextViewStyle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@{String.format(@string/type, data.type)}"
+                    android:visibility="@{TextUtils.isEmpty(data.type) ? View.GONE : View.VISIBLE}"
+                    tools:text="Type: Movie" />
+
+            </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/createdOn"
@@ -108,7 +128,7 @@
                 android:text="@{String.format(@string/created_on, data.created_on)}"
                 android:visibility="@{TextUtils.isEmpty(data.created_on) ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toEndOf="@+id/moviePoster"
-                app:layout_constraintTop_toBottomOf="@+id/duration"
+                app:layout_constraintTop_toBottomOf="@+id/durationLl"
                 tools:text="Created On: 2020-03-20T07:35:26.271485Z" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -130,7 +150,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="8dp"
                 android:text="@{data.shortDescription}"
-                android:visibility="@{TextUtils.isEmpty(data.shortDescription) ? View.GONE : View.VISIBLE}"
+                android:visibility="@{TextUtils.isEmpty(data.shortDescription) ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintBottom_toTopOf="@+id/longDescription"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/moviePoster"
@@ -146,7 +166,7 @@
                 android:visibility="@{TextUtils.isEmpty(data.description) ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/moviePoster"
+                app:layout_constraintTop_toBottomOf="@+id/shortDescription"
                 tools:text="Plan: Pro" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,17 +1,20 @@
 package com.dhruvdroid.sampleott.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.dhruvdroid.sampleott.R
 import com.dhruvdroid.sampleott.data.Tray
 import com.dhruvdroid.sampleott.databinding.MovieItemBinding
 
 //
 // Created by Dhruv on 23/08/20.
 //
-class ContentListAdapter(val list: MutableList<Tray>) :
+class ContentListAdapter(val context: Context, val list: MutableList<Tray>) :
     RecyclerView.Adapter<ContentListAdapter.MovieViewHolder>(), Filterable {
 
     private var listFiltered: MutableList<Tray>
@@ -36,12 +39,12 @@ class ContentListAdapter(val list: MutableList<Tray>) :
 //            viewBinder.title.text = data.name
 //            viewBinder.movieCard.setBackgroundResource(getDrawableResource(data.posterImage))
             viewBinder.data = data
+            Glide.with(context).load(R.drawable.test_image).into(viewBinder.moviePoster);
         }
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.viewBinding(listFiltered[position])
-        holder
     }
 
     override fun getItemCount(): Int {

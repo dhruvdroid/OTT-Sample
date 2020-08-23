@@ -70,7 +70,7 @@ class MainActivity : BaseActivity() {
 //        movieAdapter.submitList(list)
 
         if (contentAdapter == null) {
-            contentAdapter = ContentListAdapter(data.TestData as MutableList<Tray>)
+            contentAdapter = ContentListAdapter(this, data.TestData as MutableList<Tray>)
             rvList.apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView

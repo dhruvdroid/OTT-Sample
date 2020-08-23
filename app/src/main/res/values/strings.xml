@@ -3,7 +3,7 @@
     <string name="no_results">No movie found 😓</string>
     <string name="search">Search</string>
     <string name="search_hint">Type here...</string>
-    <string name="romantic_comedy">Romantic Comedy</string>
+    <string name="sample_ott">Sample OTT</string>
     <string name="plan_free">Plan: %s</string>
     <string name="release_year_2019">Release Year: %s</string>
     <string name="duration">Duration: %s</string>
